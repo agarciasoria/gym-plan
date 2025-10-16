@@ -58,17 +58,6 @@ nav a {
   font-weight: 500;
 }
 
-.menu-toggle {
-  display: none;
-}
-
-.menu-icon {
-  display: none;
-  font-size: 1.6rem;
-  cursor: pointer;
-  user-select: none;
-}
-
 .site-footer {
   padding: 14px;
   text-align: center;
@@ -141,53 +130,44 @@ button:hover, button:active {
   color: var(--muted);
 }
 
+/* --- MODIFIED SECTION --- */
+
 /* Mobile responsive */
 @media (max-width: 700px) {
   .container {
     padding: 14px;
   }
 
+  .site-header {
+    /* Add a small gap for when items wrap */
+    gap: 10px;
+  }
+
   .site-header h1 {
     font-size: 1.2rem;
-    flex: 1 1 100%;
+    /* The `flex: 1 1 100%` was removed to prevent it from forcing a line break */
   }
 
-  .menu-icon {
-    display: block;
-  }
-
+  /* Make the navigation wrap to a new line and center itself */
   nav {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background: var(--card);
-    border-top: 1px solid #eee;
-    margin-top: 10px;
-    padding-top: 8px;
-  }
-
-  .menu-toggle:checked + .menu-icon + nav {
     display: flex;
-  }
-
-  nav a {
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0;
-    text-align: center;
-  }
-
-  nav a:last-child {
-    border-bottom: none;
+    justify-content: center;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 8px;
   }
 }
 
-/* Desktop */
+/* On desktop, ensure the nav displays correctly.
+   This rule is mostly redundant now but kept for clarity. */
 @media (min-width: 701px) {
-  .menu-toggle, .menu-icon {
-    display: none;
-  }
-
   nav {
     display: flex !important;
+    width: auto;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+    justify-content: flex-start;
   }
 }
