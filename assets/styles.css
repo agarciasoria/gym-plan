@@ -32,7 +32,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Kept for medium screen flexibility */
 }
 
 .site-header h1 {
@@ -139,35 +139,46 @@ button:hover, button:active {
   }
 
   .site-header {
-    /* Add a small gap for when items wrap */
-    gap: 10px;
+    /* Change direction to stack items vertically */
+    flex-direction: column;
+    /* Align items to the start (left) of the container */
+    align-items: flex-start;
+    /* Add a gap between the stacked items */
+    gap: 12px;
   }
 
   .site-header h1 {
     font-size: 1.2rem;
-    /* The `flex: 1 1 100%` was removed to prevent it from forcing a line break */
   }
 
-  /* Make the navigation wrap to a new line and center itself */
+  /* Adjust nav to look good in the new stacked layout */
   nav {
-    display: flex;
-    justify-content: center;
     width: 100%;
-    border-top: 1px solid #eee;
+    justify-content: flex-start; /* Align links to the left */
     padding-top: 10px;
-    margin-top: 8px;
+    border-top: 1px solid #eee;
   }
 }
 
-/* On desktop, ensure the nav displays correctly.
-   This rule is mostly redundant now but kept for clarity. */
+/* Desktop: This block is now less critical but ensures the hamburger menu logic (if you add it back) stays hidden */
 @media (min-width: 701px) {
-  nav {
-    display: flex !important;
-    width: auto;
-    border-top: none;
-    padding-top: 0;
-    margin-top: 0;
-    justify-content: flex-start;
+  /* This ensures the mobile column layout is overridden on larger screens */
+  .site-header {
+    flex-direction: row;
+    align-items: center;
   }
+}
+/* Style for dynamically created delete button */
+.delete-btn {
+  width: auto; /* Override default full-width */
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  margin-left: 10px;
+  background: #e74c3c; /* A red color for delete */
+  display: inline-block; /* Allow it to sit next to text */
+  vertical-align: middle; /* Align nicely with the text */
+}
+
+.delete-btn:hover {
+  background: #c0392b;
 }

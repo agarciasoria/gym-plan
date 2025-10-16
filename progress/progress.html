@@ -9,11 +9,11 @@
 </head>
 <body>
 
+<!-- === MODIFIED HEADER SECTION === -->
 <header class="site-header">
-  <h1>Progress Tracker</h1>
-
-  <input type="checkbox" id="menu-toggle" class="menu-toggle">
-  <label for="menu-toggle" class="menu-icon">☰</label>
+  <div class="site-branding">
+    <h1>Progress Tracker</h1>
+  </div>
   <nav>
     <a href="../index.html">Home</a>
     <a href="../exercises/index.html">Exercises</a>
@@ -52,6 +52,12 @@
     <ul id="notes-list"></ul>
   </section>
 </main>
+
+<!-- === ADDED FOOTER SECTION === -->
+<footer class="site-footer">
+  <p>Created for my sister — beginner friendly, machines only.</p>
+</footer>
+
 
 <script>
 const workoutExercises = {
@@ -105,7 +111,9 @@ function loadChart(){
     
     const delBtn = document.createElement('button');
     delBtn.textContent = 'Delete';
-    delBtn.style.marginLeft = '10px';
+    // === MODIFIED JS FOR DELETE BUTTON ===
+    // Use a CSS class instead of inline style
+    delBtn.classList.add('delete-btn'); 
     delBtn.onclick = ()=>{
       deleteEntry(d.date, d.exercise, d.weight, d.notes);
     };
