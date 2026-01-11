@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<!-- === MODIFIED HEADER SECTION === -->
+<!-- === HEADER === -->
 <header class="site-header">
   <div class="site-branding">
     <h1>Progress Tracker</h1>
@@ -24,10 +24,11 @@
 <main class="container">
   <section>
     <h2>Record Your Workout</h2>
+
     <label for="workout">Select Workout:</label>
     <select id="workout">
-      <option value="Day 1">Day 1</option>
-      <option value="Day 2">Day 2</option>
+      <option value="Day A">Day A</option>
+      <option value="Day B">Day B</option>
     </select>
 
     <label for="exercise">Select Exercise:</label>
@@ -53,16 +54,28 @@
   </section>
 </main>
 
-<!-- === ADDED FOOTER SECTION === -->
 <footer class="site-footer">
-  <p>Created for my sister — beginner friendly, machines only.</p>
+  <p>Created for my sister — beginner to intermediate, full-body focused.</p>
 </footer>
-
 
 <script>
 const workoutExercises = {
-  "Day 1": ["Leg Press", "Chest Press", "Leg Curl", "Shoulder Press", "Abductor", "Seated Row"],
-  "Day 2": ["Lat Pulldown", "Leg Extension", "Seated Row", "Glute Machine", "Bicep Curl", "Ab Crunch / Plank"]
+  "Day A": [
+    "Goblet Squat",
+    "Push-Ups",
+    "Seated Row",
+    "Shoulder Press",
+    "Dumbbell Romanian Deadlift",
+    "Plank"
+  ],
+  "Day B": [
+    "Lat Pulldown",
+    "Leg Extension",
+    "Seated Bicep Curl",
+    "Glute Machine / Walking Lunges",
+    "Controlled Negative Pull-Ups",
+    "Hanging Knee Raises"
+  ]
 };
 
 const workoutSelect = document.getElementById('workout');
@@ -75,10 +88,7 @@ const ctx = document.getElementById('chart').getContext('2d');
 
 let chart = new Chart(ctx, {
   type:'bar',
-  data:{
-    labels:[],
-    datasets:[{label:'Weight (kg)', data:[], backgroundColor:'#2a7ae2'}]
-  },
+  data:{labels:[], datasets:[{label:'Weight (kg)', data:[], backgroundColor:'#2a7ae2'}]},
   options:{responsive:true, scales:{y:{beginAtZero:true}}}
 });
 
@@ -97,13 +107,11 @@ function updateExerciseOptions(){
 function loadChart(){
   const ex = exerciseSelect.value;
   const data = JSON.parse(localStorage.getItem('progress')||'[]').filter(x=>x.exercise===ex);
-  
-  // Update chart
+
   chart.data.labels = data.map(d=>d.date);
   chart.data.datasets[0].data = data.map(d=>d.weight);
   chart.update();
 
-  // Update notes list with delete buttons
   notesList.innerHTML = '';
   data.forEach((d,index)=>{
     const li = document.createElement('li');
@@ -111,19 +119,14 @@ function loadChart(){
     
     const delBtn = document.createElement('button');
     delBtn.textContent = 'Delete';
-    // === MODIFIED JS FOR DELETE BUTTON ===
-    // Use a CSS class instead of inline style
     delBtn.classList.add('delete-btn'); 
-    delBtn.onclick = ()=>{
-      deleteEntry(d.date, d.exercise, d.weight, d.notes);
-    };
+    delBtn.onclick = ()=>{ deleteEntry(d.date,d.exercise,d.weight,d.notes); };
     
     li.appendChild(delBtn);
     notesList.appendChild(li);
   });
 }
 
-// Delete function
 function deleteEntry(date, exercise, weight, notes){
   let entries = JSON.parse(localStorage.getItem('progress')||'[]');
   entries = entries.filter(e => !(e.date===date && e.exercise===exercise && e.weight===weight && e.notes===notes));
@@ -154,5 +157,3 @@ updateExerciseOptions();
 
 </body>
 </html>
-
-
